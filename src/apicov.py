@@ -30,8 +30,6 @@ def main():
 
     # lib_exports.get_install_headers(build_system)
     lib_exports.filter_non_apis()
-    print(lib_exports.apis)
-    sys.exit()
 
     json_data = {"library": lib_exports.apis, "headers": lib_exports.headers}
     with open('apis.json', 'w') as fh:
