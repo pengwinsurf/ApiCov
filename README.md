@@ -1,6 +1,6 @@
 # ApiCov
 
-This is Github Action that is responsible for parsing all the coverage files and uploading them to the server.
+This is Github App that is responsible for parsing all the coverage files and uploading them to the server.
 The action should also identify the APIs of interest based on the libraries being built. 
 As the GitHub workflow starts there will be two stages of interest to this action.
 * The build process which generates shared libraries. We would need the shared libraries to get the list of symbols from there as a superset of the APIs. 
