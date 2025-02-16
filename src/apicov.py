@@ -8,7 +8,8 @@ from modules.Coverage import LibCoverage
 
 def main():
     parser = argparse.ArgumentParser(description="Code SA API Coverage Tool")
-    parser.add_argument('project_dir', type=str, help='Path to the project directory')
+    parser.add_argument('project_dir', type=str, help='Path to the root directory')
+    parser.add_argument('install_dir', type=str, help='Path to where the built library is installed')
     parser.add_argument('--log', type=str, default='info', help='Logging level (debug, info, warning, error, critical)')
 
     args = parser.parse_args()
@@ -26,10 +27,10 @@ def main():
         logging.error("Unsupported or unknown build system")
         return
 
-    lib_exports.run_install_command(build_system)
+    # lib_exports.run_install_command(build_system)
 
     # lib_exports.get_install_headers(build_system)
-    lib_exports.filter_non_apis()
+    lib_exports.filter_non_apis(args.install_dir)
 
     json_data = {"library": lib_exports.apis, "headers": lib_exports.headers}
     with open('apis.json', 'w') as fh:

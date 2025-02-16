@@ -17,9 +17,8 @@ class ExportFetcher(object):
         self._root_dir = os.path.abspath(project_dir)
         self.headers = []
 
-    def grep_for_symbol(self, symbol):
-        include_dir = "/usr/local/include"
-        for root, _, files in os.walk(include_dir):
+    def grep_for_symbol(self, symbol, install_dir):
+        for root, _, files in os.walk(install_dir):
             for file in files:
                 if file.endswith(".h") or file.endswith(".hpp") or file.endswith(".hxx"):
                     header = os.path.join(root, file)
@@ -31,9 +30,9 @@ class ExportFetcher(object):
                         self.apis.append(symbol)
                         return
 
-    def filter_non_apis(self):
+    def filter_non_apis(self, install_dir):
         for symbol in self.symbols:
-            self.grep_for_symbol(symbol)
+            self.grep_for_symbol(symbol, os.path.abspath(install_dir))
 
     def find_functions_in_file(self, file_data):
         pattern = r'(?:\s*(static\s+|inline\s+|virtual\s+)?)?([\w\s*]+?)\s+([\w_]+)\s*\(([^)]*)\)\s*(?:const)?\s*(?:volatile)?\s*;'
