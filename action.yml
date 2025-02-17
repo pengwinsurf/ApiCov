@@ -15,34 +15,26 @@ runs:
   using: "composite"
   steps:
     - name: Install Path
-      run: echo "Install Dir $INPUT_PRJDIR."
+      run: echo "Install Dir: ${{ inputs.install_path }}"
       shell: bash
-      env:
-        INPUT_PRJDIR: ${{ inputs.directory }}
 
     - name: Root Path
-      run: echo "Root Dir $INPUT_ROOTDIR."
+      run: echo "Root Dir: ${{ inputs.root_path }}"
       shell: bash
-      env:
-        INPUT_ROOTDIR: ${{ inputs.root }}
 
     - name: Random Number Generator
       id: random-number-generator
-      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
+      run: echo "random-number=$(echo $RANDOM)" >> "$GITHUB_OUTPUT"
       shell: bash
 
-    - name: Set GitHub Path
-      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
-      shell: bash
-      env:
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
-
-    - name: Debug Action Directory
+    - name: Debug Action Path
       run: |
-        ls -R ${{ github.action_path }}
+        echo "GitHub Action Path: ${{ github.action_path }}"
+        ls -R "${{ github.action_path }}" || echo "Directory not found!"
       shell: bash
 
     - name: Run APICov
-      run: python3  ${{ github.action_path }}/src/apicov.py ${{ inputs.root }} ${{ inputs.directory }}
+      run: python3 "${{ github.action_path }}/src/apicov.py" "${{ inputs.root_path }}" "${{ inputs.install_path }}"
       shell: bash
+
 
