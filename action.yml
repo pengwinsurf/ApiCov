@@ -17,6 +17,11 @@ runs:
       env:
         INPUT_PRJDIR: ${{ inputs.directory }}
 
+    - name: 'Setup Python'
+      uses: 'actions/setup-python@main'
+      with:
+        python-version: '3.x'
+
     - name: Random Number Generator
       id: random-number-generator
       run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
@@ -29,6 +34,6 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: Run APICov
-      run: python src/apicov.py "$GITHUB_WORKSPACE" "$INPUT_PRJDIR"
+      run: python3 src/apicov.py "$GITHUB_WORKSPACE" "$INPUT_PRJDIR"
       shell: bash
 
