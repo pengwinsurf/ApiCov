@@ -33,10 +33,15 @@ runs:
     - name: Run APICov
       run: ${GITHUB_ACTION_PATH}/dist/run.sh "${{ inputs.root_path }}" "${{ inputs.install_path }}"
       shell: bash
+    - name: Debug directory
+      run: |
+        ls -la ${{ inputs.root_path }}
     - name: "Upload JSON files"
       uses: actions/upload-artifact@v4
       with:
+        path: |
+          ${{inputs.root_path}}/apis.json
+          ${{inputs.root_path}}/api_coverage.json
         if-no-files-found: error
-        path: ${GITHUB_ACTION_PATH}/dist/*.json
 
 
