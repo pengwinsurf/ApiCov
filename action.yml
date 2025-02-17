@@ -25,6 +25,11 @@ runs:
         ls -R "${{ github.action_path }}" || echo "Directory not found!"
       shell: bash
 
+    - name: Debug Parent Action Directory
+      run: |
+        ls -R /home/runner/work/_actions/pengwinsurf/ApiCov || echo "Directory not found!"
+      shell: bash
+
     - name: Run APICov
       run: python3 /home/runner/work/_actions/pengwinsurf/ApiCov/src/apicov.py "${{ inputs.root_path }}" "${{ inputs.install_path }}"
       shell: bash
