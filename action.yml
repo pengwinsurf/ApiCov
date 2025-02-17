@@ -32,7 +32,11 @@ runs:
 
     - name: Run APICov
       run: ${GITHUB_ACTION_PATH}/dist/run.sh "${{ inputs.root_path }}" "${{ inputs.install_path }}"
-      # run: python3 /home/runner/work/_actions/pengwinsurf/ApiCov/src/apicov.py "${{ inputs.root_path }}" "${{ inputs.install_path }}"
       shell: bash
+    - name: "Upload JSON files"
+      uses: actions/upload-artifact@v4
+      with:
+        if-no-files-found: error
+        path: ${GITHUB_ACTION_PATH}/dist/*.json
 
 
