@@ -7,10 +7,7 @@ inputs:
   root_path:
     description: 'The directory where the repo is cloned'
     required: true
-outputs:
-  apicov:
-    description: "API coverage data"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+
 runs:
   using: "composite"
   steps:
@@ -20,11 +17,6 @@ runs:
 
     - name: Root Path
       run: echo "Root Dir: ${{ inputs.root_path }}"
-      shell: bash
-
-    - name: Random Number Generator
-      id: random-number-generator
-      run: echo "random-number=$(echo $RANDOM)" >> "$GITHUB_OUTPUT"
       shell: bash
 
     - name: Debug Action Path
