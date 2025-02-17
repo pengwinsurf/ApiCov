@@ -1,8 +1,11 @@
 name: 'ApiCov'
 description: 'Collect API coverage data'
 inputs:
-  directory:
+  install_path:
     description: 'The directory where the build is installed'
+    required: true
+  root_path:
+    description: 'The directory where the repo is cloned'
     required: true
 outputs:
   apicov:
@@ -11,16 +14,17 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set Greeting
+    - name: Install Path
       run: echo "Install Dir $INPUT_PRJDIR."
       shell: bash
       env:
         INPUT_PRJDIR: ${{ inputs.directory }}
 
-    - name: 'Setup Python'
-      uses: 'actions/setup-python@main'
-      with:
-        python-version: '3.12'
+    - name: Root Path
+      run: echo "Root Dir $INPUT_ROOTDIR."
+      shell: bash
+      env:
+        INPUT_ROOTDIR: ${{ inputs.root }}
 
     - name: Random Number Generator
       id: random-number-generator
@@ -35,6 +39,6 @@ runs:
 
 
     - name: Run APICov
-      run: python3 src/apicov.py $GITHUB_WORKSPACE ${{ inputs.directory }}
+      run: python3 src/apicov.py ${{ inputs.root }} ${{ inputs.directory }}
       shell: bash
 
