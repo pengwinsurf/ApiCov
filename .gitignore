@@ -2,3 +2,11 @@
 venv/*
 *.pem
 *.pyc
+*.spec
+*.toc
+*.pyz
+*.log
+*.code-workspace
+*.zip
+*.html
+*.pkg
