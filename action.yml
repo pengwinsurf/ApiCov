@@ -26,7 +26,7 @@ runs:
       shell: bash
 
     - name: Run APICov
-      run: python3 "${{ github.action_path }}/src/apicov.py" "${{ inputs.root_path }}" "${{ inputs.install_path }}"
+      run: python3 /home/runner/work/_actions/pengwinsurf/ApiCov "${{ inputs.root_path }}" "${{ inputs.install_path }}"
       shell: bash
 
 
