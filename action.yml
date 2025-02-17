@@ -11,13 +11,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Install Path
-      run: echo "Install Dir: ${{ inputs.install_path }}"
-      shell: bash
+    # - name: Install Path
+    #   run: echo "Install Dir: ${{ inputs.install_path }}"
+    #   shell: bash
 
-    - name: Root Path
-      run: echo "Root Dir: ${{ inputs.root_path }}"
-      shell: bash
+    # - name: Root Path
+    #   run: echo "Root Dir: ${{ inputs.root_path }}"
+    #   shell: bash
 
     - name: Debug Action Path
       run: |
