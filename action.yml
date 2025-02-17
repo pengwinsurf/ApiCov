@@ -37,6 +37,9 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
+    - name: Debug Action Directory
+      run: |
+        ls -R ${{ github.action_path }}
 
     - name: Run APICov
       run: python3  ${{ github.action_path }}/src/apicov.py ${{ inputs.root }} ${{ inputs.directory }}
