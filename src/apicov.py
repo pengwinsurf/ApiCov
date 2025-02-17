@@ -16,8 +16,10 @@ def main():
 
     logging.basicConfig(level=getattr(logging, args.log.upper(), None))
 
+    logging.info("Looking for shared libraries in the project directory")
     shared_libs = find_shared_libraries(args.project_dir)
 
+    logging.info("Identifying exports from shared libraries")
     lib_exports = ExportFetcher(args.project_dir)
     for lib in shared_libs:
         lib_exports.get_exports_from_lib(lib)
@@ -30,14 +32,18 @@ def main():
     # lib_exports.run_install_command(build_system)
 
     # lib_exports.get_install_headers(build_system)
+    logging.info("Filtering non-API exports")
     lib_exports.filter_non_apis(args.install_dir)
 
     json_data = {"library": lib_exports.apis, "headers": lib_exports.headers}
+    logging.info("Writing APIs to api.json..")
     with open('apis.json', 'w') as fh:
         json.dump(json_data, fh)
     
     entry_cov = LibCoverage(lib_exports.apis, args.project_dir)
+    logging.info("Running gcov to identify API sizes and coverage")
     entry_cov.run_gcov_on_gcno_files()
+    logging.info("Populate API sizes and coverage")
     entry_cov.populate_entry_api_cov()
 
     json_data = {}
@@ -50,6 +56,7 @@ def main():
         else:
             logging.error("Failed to find size for API: %s", api)
             failed_apis.append(api)
+    logging.info("Writing API coverage to api_coverage.json..")
     with open('api_coverage.json', 'w') as fh:
         json.dump(json_data, fh)
 
