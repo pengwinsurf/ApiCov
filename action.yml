@@ -33,7 +33,13 @@ runs:
       env:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
+    - name: Set GitHub workspace
+      run: echo "$GITHUB_WORKSPACE" >> $GITHUB_WORKSPACE
+      shell: bash
+      env:
+        GITHUB_WORKSPACE: ${{ github.workspace }}    
+
     - name: Run APICov
-      run: python3 src/apicov.py "$GITHUB_WORKSPACE" "$INPUT_PRJDIR"
+      run: python3 src/apicov.py ${{ github.workspace }} ${{ inputs.directory }}
       shell: bash
 
