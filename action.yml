@@ -39,6 +39,6 @@ runs:
 
 
     - name: Run APICov
-      run: python3 src/apicov.py ${{ inputs.root }} ${{ inputs.directory }}
+      run: python3  ${{ github.action_path }}/src/apicov.py ${{ inputs.root }} ${{ inputs.directory }}
       shell: bash
 
