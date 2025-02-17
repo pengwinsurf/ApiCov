@@ -40,6 +40,7 @@ runs:
     - name: Debug Action Directory
       run: |
         ls -R ${{ github.action_path }}
+      shell: bash
 
     - name: Run APICov
       run: python3  ${{ github.action_path }}/src/apicov.py ${{ inputs.root }} ${{ inputs.directory }}
