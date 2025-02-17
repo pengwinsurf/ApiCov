@@ -22,10 +22,10 @@ def main():
     for lib in shared_libs:
         lib_exports.get_exports_from_lib(lib)
 
-    build_system = identify_build_system(args.project_dir)
-    if build_system == 'unknown':
-        logging.error("Unsupported or unknown build system")
-        return
+    # build_system = identify_build_system(args.project_dir)
+    # if build_system == 'unknown':
+    #     logging.error("Unsupported or unknown build system")
+    #     return
 
     # lib_exports.run_install_command(build_system)
 
