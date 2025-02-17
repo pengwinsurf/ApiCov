@@ -36,6 +36,7 @@ runs:
     - name: Debug directory
       run: |
         ls -la ${{ inputs.root_path }}
+      shell: bash
     - name: "Upload JSON files"
       uses: actions/upload-artifact@v4
       with:
