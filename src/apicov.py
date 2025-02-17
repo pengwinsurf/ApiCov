@@ -1,7 +1,7 @@
 import argparse
 import logging
 import json
-import sys
+import os
 from modules.ExportFetcher import ExportFetcher
 from modules.Utils import identify_build_system, find_shared_libraries
 from modules.Coverage import LibCoverage
@@ -36,8 +36,9 @@ def main():
     lib_exports.filter_non_apis(args.install_dir)
 
     json_data = {"library": lib_exports.apis, "headers": lib_exports.headers}
-    logging.info("Writing APIs to api.json..")
-    with open('apis.json', 'w') as fh:
+    api_file = os.path.join(args.project_dir, 'apis.json')
+    logging.info("Writing APIs to:  %s", api_file)
+    with open(api_file, 'w') as fh:
         json.dump(json_data, fh)
     
     entry_cov = LibCoverage(lib_exports.apis, args.project_dir)
@@ -56,8 +57,9 @@ def main():
         else:
             logging.error("Failed to find size for API: %s", api)
             failed_apis.append(api)
-    logging.info("Writing API coverage to api_coverage.json..")
-    with open('api_coverage.json', 'w') as fh:
+    apicov_file = os.path.join(args.project_dir, 'api_coverage.json')
+    logging.info("Writing API coverage to: %s",apicov_file)
+    with open(apicov_file, 'w') as fh:
         json.dump(json_data, fh)
 
 
