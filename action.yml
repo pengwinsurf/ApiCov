@@ -20,7 +20,7 @@ runs:
     - name: 'Setup Python'
       uses: 'actions/setup-python@main'
       with:
-        python-version: '3.x'
+        python-version: '3.12'
 
     - name: Random Number Generator
       id: random-number-generator
