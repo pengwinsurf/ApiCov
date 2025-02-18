@@ -1,7 +1,7 @@
 import os
 import logging
 
-from logging_config import logging 
+from modules.logging_config import logging 
 
 
 def identify_build_system(project_dir):

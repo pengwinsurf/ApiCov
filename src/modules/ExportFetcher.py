@@ -5,7 +5,7 @@ import logging
 import json
 import subprocess
 
-from logging_config import logging 
+from modules.logging_config import logging 
 
 class ExportFetcher(object):
     def __init__(self, project_dir):
