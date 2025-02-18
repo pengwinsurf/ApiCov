@@ -17,7 +17,7 @@ def main():
     logging.basicConfig(level=getattr(logging, args.log.upper(), None))
 
     logging.info("Looking for shared libraries in the project directory")
-    shared_libs = find_shared_libraries(args.project_dir)
+    shared_libs = find_shared_libraries(args.install_dir)
 
     logging.debug("Shared libraries found: %s", shared_libs)
 
