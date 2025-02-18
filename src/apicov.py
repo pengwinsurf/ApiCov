@@ -19,10 +19,14 @@ def main():
     logging.info("Looking for shared libraries in the project directory")
     shared_libs = find_shared_libraries(args.project_dir)
 
+    logging.debug("Shared libraries found: %s", shared_libs)
+
     logging.info("Identifying exports from shared libraries")
     lib_exports = ExportFetcher(args.project_dir)
     for lib in shared_libs:
         lib_exports.get_exports_from_lib(lib)
+
+    logging.info("Total number of symbols found: %d", len(lib_exports.symbols))
 
     # build_system = identify_build_system(args.project_dir)
     # if build_system == 'unknown':
@@ -35,7 +39,8 @@ def main():
     logging.info("Filtering non-API exports")
     lib_exports.filter_non_apis(args.install_dir)
 
-    json_data = {"library": lib_exports.apis, "headers": lib_exports.headers}
+    logging.info("Total number of APIs found: %d", len(lib_exports.apis))
+    json_data = {"apis": lib_exports.apis}
     api_file = os.path.join(args.project_dir, 'apis.json')
     logging.info("Writing APIs to:  %s", api_file)
     with open(api_file, 'w') as fh:
