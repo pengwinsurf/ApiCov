@@ -1,8 +1,8 @@
 import re
 import logging
 from collections import defaultdict
+from logging_config import logging 
 
-logging.basicConfig(level=logging.DEBUG)
 
 class CallGraphParser():
     # A parser for LLVM call graph files.

@@ -10,3 +10,5 @@ venv/*
 *.zip
 *.html
 *.pkg
+build/*
+*__pycache__/*

@@ -5,6 +5,8 @@ import logging
 import json
 import subprocess
 
+from logging_config import logging 
+
 basedir = os.path.dirname(os.path.realpath(__file__))
 if basedir not in sys.path:
     sys.path.append(basedir)
@@ -22,7 +24,7 @@ class ExportFetcher(object):
             for file in files:
                 if file.endswith(".h") or file.endswith(".hpp") or file.endswith(".hxx"):
                     header = os.path.join(root, file)
-                    logging.info("Searching for symbol: %s in header: %s", symbol, header)
+                    logging.debug("Searching for symbol: %s in header: %s", symbol, header)
                     cmd = ["grep", "-rw", symbol, header]
                     result = subprocess.run(cmd, capture_output=True, text=True)
                     if result.returncode == 0:
@@ -96,9 +98,9 @@ class ExportFetcher(object):
         """
         nm_command = ["nm", "-D", "--defined-only", shared_lib]
         grep_command = ["grep", " T "]
-        logging.info("Running: %s", ' '.join(nm_command))
+        logging.debug("Running: %s", ' '.join(nm_command))
         proc1 = subprocess.run(nm_command, stdout=subprocess.PIPE)
-        logging.info("Running: %s", ''.join(grep_command))
+        logging.debug("Running: %s", ''.join(grep_command))
         proc2 = subprocess.run(grep_command, input=proc1.stdout.decode('utf-8'), capture_output=True, text=True)
         for line in proc2.stdout.split('\n'):
             if line.find("operator") != -1:

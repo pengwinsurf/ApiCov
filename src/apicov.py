@@ -1,20 +1,18 @@
 import argparse
-import logging
 import json
 import os
 from modules.ExportFetcher import ExportFetcher
 from modules.Utils import identify_build_system, find_shared_libraries
 from modules.Coverage import LibCoverage
+from modules.logging_config import logging 
 
 def main():
-    parser = argparse.ArgumentParser(description="Code SA API Coverage Tool")
+    parser = argparse.ArgumentParser(description="CodeSA API Coverage Tool")
     parser.add_argument('project_dir', type=str, help='Path to the root directory')
     parser.add_argument('install_dir', type=str, help='Path to where the built library is installed')
-    parser.add_argument('--log', type=str, default='info', help='Logging level (debug, info, warning, error, critical)')
 
     args = parser.parse_args()
 
-    logging.basicConfig(level=getattr(logging, args.log.upper(), None))
 
     logging.info("Looking for shared libraries in the project directory")
     shared_libs = find_shared_libraries(args.install_dir)
@@ -42,7 +40,7 @@ def main():
     logging.info("Total number of APIs found: %d", len(lib_exports.apis))
     json_data = {"apis": lib_exports.apis}
     api_file = os.path.join(args.project_dir, 'apis.json')
-    logging.info("Writing APIs to:  %s", api_file)
+    logging.debug("Writing APIs to:  %s", api_file)
     with open(api_file, 'w') as fh:
         json.dump(json_data, fh)
     

@@ -5,8 +5,8 @@ import re
 import json
 import logging
 from collections import defaultdict
+from logging_config import logging 
 
-logging.basicConfig(level=logging.DEBUG)
 
 class LibCoverage():
 
@@ -129,7 +129,7 @@ class LibCoverage():
                 float_cov = float(coverage.strip("%"))
                 # logging.debug("Float value: %r", float_cov)
                 if float_cov > 100.00:
-                    logging.warn("Error - coverage greater than 100%")
+                    logging.warning("Error - coverage greater than 100%")
                     logging.debug("%s", results.stdout)
                     float_cov = 100.00
 
