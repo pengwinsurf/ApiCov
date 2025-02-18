@@ -7,11 +7,6 @@ import subprocess
 
 from logging_config import logging 
 
-basedir = os.path.dirname(os.path.realpath(__file__))
-if basedir not in sys.path:
-    sys.path.append(basedir)
-
-
 class ExportFetcher(object):
     def __init__(self, project_dir):
         self.symbols = []
