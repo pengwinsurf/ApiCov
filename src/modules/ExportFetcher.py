@@ -107,9 +107,7 @@ class ExportFetcher(object):
                 line = line.split("@@")[0]
 
             line = line.strip()
-            print(line)
             if "::" in line:
-                print(line)
                 # if line.find("operator") != -1:
                 #     continue
                 pattern= r'\w+::(\w+)[\(\[]'

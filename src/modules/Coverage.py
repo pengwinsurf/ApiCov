@@ -58,7 +58,7 @@ class LibCoverage():
 
 
         if final_coverage > 100.00:
-            logging.warning("Error - coverage greater than 100%")
+            logging.debug("Coverage greater than 100%")
             logging.debug("%s", results.stdout)
 
             covered_lines = final_size
